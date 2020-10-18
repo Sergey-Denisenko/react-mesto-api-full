@@ -1,0 +1,10 @@
+
+  {
+    "extends": "airbnb-base",
+    "env": {
+      "es6": true
+    },
+    "rules": {
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+    }
+  }

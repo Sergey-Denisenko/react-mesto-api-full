@@ -1,0 +1,7 @@
+node_modules
+public
+/.git
+/.editorconfig
+/.gitignore
+/.nojekyll
+/.env
