@@ -1,6 +1,8 @@
 const Card = require('../models/card');
+const BadRequestError = require('../errors/bad-requet-error'); // 400
+const NotFoundError = require('../errors/not-found-err'); // 404
 
-const getAllCards = (req, res) => {
+const getAllCards = (req, res, next) => {
   Card.find({})
     .populate('owner')
     .orFail(new Error('CanNotLoadCards'))
@@ -10,13 +12,15 @@ const getAllCards = (req, res) => {
     // eslint-disable-next-line no-unused-vars
     .catch((err) => {
       if (err.message === 'CanNotLoadCards') {
-        return res.status(404).send({ message: 'Not Found / Карточки не найдены' });
+        // return res.status(404).send({ message: 'Not Found / Карточки не найдены' });
+        next(new NotFoundError('Not Found / Карточки не найдены')); // 404
       }
-      return res.status(500).send({ message: 'На сервере произошла ошибка' });
+      // return res.status(500).send({ message: 'На сервере произошла ошибка' });
+      next(err);
     });
 };
 
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const {
     name, link, ownerId = req.user._id, likes,
   } = req.body;
@@ -29,14 +33,16 @@ const createCard = (req, res) => {
     // eslint-disable-next-line no-unused-vars
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        next(err);
       }
     });
 };
 
-const deleteCardById = (req, res) => {
+const deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .orFail(new Error('NothingToDelete'))
     .then((cardItem) => {
@@ -44,14 +50,16 @@ const deleteCardById = (req, res) => {
     })
     .catch((err) => {
       if (err.message === 'NothingToDelete') {
-        res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        next(err);
       }
     });
 };
 
-const addLikeCardById = (req, res) => {
+const addLikeCardById = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
@@ -63,17 +71,20 @@ const addLikeCardById = (req, res) => {
     })
     .catch((err) => {
       if (err.message === 'NoAddLike') {
-        res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
       } else if
       (err.name === 'CastError') {
-        res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        next(err);
       }
     });
 };
 
-const deleteLikeCardById = (req, res) => {
+const deleteLikeCardById = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // добавить _id в массив, если его там нет
@@ -85,12 +96,15 @@ const deleteLikeCardById = (req, res) => {
     })
     .catch((err) => {
       if (err.message === 'NoDeleteLike') {
-        res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
       } else if
       (err.name === 'CastError') {
-        res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        next(err);
       }
     });
 };

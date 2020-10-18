@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 // eslint-disable-next-line no-useless-escape
-const regex = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?#?$/gm;
+// const regex = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?#?$/gm;
+const isURL = require('validator/lib/isURL');
+
 const cardSchema = new mongoose.Schema({ // Создаю схему cardSchema
   name: {
     type: String,
@@ -11,7 +13,8 @@ const cardSchema = new mongoose.Schema({ // Создаю схему cardSchema
   link: {
     type: String,
     validate: {
-      validator: (v) => regex.test(v),
+      // validator: (v) => regex.test(v),
+      validator: (v) => isURL(v),
       message: (props) => `${props.value} is not a valid URL!`,
     },
     required: true,

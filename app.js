@@ -6,6 +6,8 @@ const unknownPageRouter = require('express').Router(); // создаю роут�
 const {
   celebrate, Joi, errors, Segments,
 } = require('celebrate'); // Ваидация входящих запросов
+const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
+const rateLimit = require('express-rate-limit'); // Модуль ограничения количества запросов
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -22,6 +24,11 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюс�
 });
 
 const { PORT = 3000 } = process.env; // слущаю порт
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // за 15 минут
+  max: 100, // можно совершить максимум 100 запросов с одного IP
+});
 
 // const path = require('path');
 const usersRouter = require('./routes/users.js');
@@ -45,6 +52,8 @@ unknownPageRouter.all('*', (req, res, next) => {
 //   next();
 // });
 app.use(requestLogger); // Подключение логера запросов
+app.use(limiter); // подключtение rate-limiter
+app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 // Роутинг
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

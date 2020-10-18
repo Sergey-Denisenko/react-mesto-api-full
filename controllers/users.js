@@ -60,9 +60,9 @@ const createUser = (req, res, next) => { // роутер создания док
       // eslint-disable-next-line no-console
       console.log('check 1');
       return User.create({
-        name: req.body.name,
-        about: req.body.about,
-        avatar: req.body.avatar,
+        // name: req.body.name,
+        // about: req.body.about,
+        // avatar: req.body.avatar,
         email: req.body.email,
         password: hash,
       }); // создаю документ на основе пришедших данных
