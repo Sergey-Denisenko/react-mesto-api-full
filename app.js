@@ -16,7 +16,8 @@ const NotFoundError = require('./errors/not-found-err');
 
 const app = express(); // создаю приложение на express
 
-mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюсь к серверу mongo
+mongoose.connect('mongodb://world.students.nomoreparties.xyz:27017/mestodb', { // подключаюсь к серверу mongo
+// mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюсь к серверу mongo
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
