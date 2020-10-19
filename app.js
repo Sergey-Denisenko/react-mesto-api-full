@@ -55,32 +55,34 @@ app.use(requestLogger); // Подключение логера запросов
 app.use(limiter); // подключtение rate-limiter
 app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 
-// app.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', 'https://world.students.nomoreparties.xyz');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-
-//   next();
-// });
-
-// Массив разешённых доменов
-const allowedCors = [
-  'https://world.students.nomoreparties.xyz',
-  'http://world.students.nomoreparties.xyz',
-  'https://api.world.students.nomoreparties.xyz',
-  'http://api.world.students.nomoreparties.xyz',
-  'localhost:3000',
-];
-
-app.use(function(req, res, next) {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
-
-  if (allowedCors.includes(origin)) { // Проверяем, что значение origin есть среди разрешённых доменов
-    res.header('Access-Control-Allow-Origin', origin);
-  }
+// eslint-disable-next-line prefer-arrow-callback
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
 
   next();
 });
+
+// Массив разешённых доменов
+// const allowedCors = [
+//   'https://world.students.nomoreparties.xyz',
+//   'http://world.students.nomoreparties.xyz',
+//   'https://api.world.students.nomoreparties.xyz',
+//   'http://api.world.students.nomoreparties.xyz',
+//   'localhost:3000',
+// ];
+
+// app.use(function(req, res, next) {
+//   const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+
+// eslint-disable-next-line max-len
+//   if (allowedCors.includes(origin)) { // Проверяем, что значение origin есть среди разрешённых доменов
+//     res.header('Access-Control-Allow-Origin', origin);
+//   }
+
+//   next();
+// });
 
 // Роутинг
 app.use(bodyParser.json());
