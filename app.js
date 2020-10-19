@@ -29,7 +29,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
   max: 100, // можно совершить максимум 100 запросов с одного IP
 });
-
+app.use(require('cors')());
 // const path = require('path');
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
@@ -56,13 +56,13 @@ app.use(limiter); // подключtение rate-limiter
 app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 
 // eslint-disable-next-line prefer-arrow-callback
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+// app.use(function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
 
-  next();
-});
+//   next();
+// });
 
 // Массив разешённых доменов
 // const allowedCors = [
