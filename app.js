@@ -35,7 +35,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
   max: 100, // можно совершить максимум 100 запросов с одного IP
 });
-// app.use(require('cors'));
+app.use(require('cors'));
 // const path = require('path');
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
