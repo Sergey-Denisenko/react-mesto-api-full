@@ -16,13 +16,18 @@ const NotFoundError = require('./errors/not-found-err');
 
 const app = express(); // создаю приложение на express
 
-mongoose.connect('mongodb://world.students.nomoreparties.xyz:27017/mestodb', { // подключаюсь к серверу mongo
-// mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюсь к серверу mongo
+mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюсь к серверу mongo
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-});
+})
+  .then(() => {
+    console.log('База данных подключена');
+  })
+  .catch((err) => {
+    console.log(`Ошибка подключения базы данных: ${err}`);
+  });
 
 const { PORT = 3000 } = process.env; // слущаю порт
 
