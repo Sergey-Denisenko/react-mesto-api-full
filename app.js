@@ -103,12 +103,14 @@ app.post('/signin', celebrate({
   // },
 }), login);
 
-app.post('/signup', celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().min(8).required(),
-  }).unknown(),
-}), createUser);
+app.post('/signup',
+// celebrate({
+//   [Segments.BODY]: Joi.object().keys({
+//     email: Joi.string().email({ tlds: { allow: false } }).required(),
+//     password: Joi.string().min(8).required(),
+//   }).unknown(),
+// }),
+  createUser);
 
 // app.use(auth);
 app.use('/users', auth, usersRouter); // Запуск usersRouter с авторизацией
