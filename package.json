@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/Sergey-Denisenko/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/Sergey-Denisenko/react-mesto-api-full#readme",
+  "homepage": ".",
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
