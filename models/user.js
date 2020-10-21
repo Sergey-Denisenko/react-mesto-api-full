@@ -15,13 +15,13 @@ const userSchema = new mongoose.Schema({ // Создаю схему userSchema
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: true,
+    // required: true,
   },
   about: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    required: true,
+    // required: true,
   },
   avatar: {
     type: String,
@@ -32,18 +32,19 @@ const userSchema = new mongoose.Schema({ // Создаю схему userSchema
       // validator: (v) => regex.test(v),
       // message: (props) => `${props.value} is not a valid URL!`, // console.log или alert
     },
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
     unique: true,
     require: true,
-    validate: {
-      validator: (v) => isEmail(v),
-      message: 'is not a valid email!',
+    // validate: {
+    //   validator: (v) => isEmail(v),
+    //   message: 'is not a valid email!',
+    // },
     //   validator: (v) => emailRegex.test(v),
     //   message: (props) => `${props.value} is not a valid email! 0`,
-    },
+    // },
   },
   password: {
     type: String,
