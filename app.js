@@ -35,6 +35,8 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
   max: 100, // можно совершить максимум 100 запросов с одного IP
 });
+
+app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 app.use(require('cors')());
 // app.use(require('cors')({ origin: 'https://world.students.nomoreparties.xyz' }));
 // const path = require('path');
@@ -48,7 +50,7 @@ console.log(process.env.NODE_ENV);
 // Роутер для запроса неизвестного адреса на сервере
 unknownPageRouter.all('*', (req, res, next) => {
   // res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-  next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+  next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден 001')); // 404
 });
 
 // eslint-disable-next-line max-len
@@ -60,7 +62,6 @@ unknownPageRouter.all('*', (req, res, next) => {
 // });
 app.use(requestLogger); // Подключение логера запросов
 app.use(limiter); // подключtение rate-limiter
-app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 
 // eslint-disable-next-line prefer-arrow-callback
 // app.use(function (req, res, next) {
