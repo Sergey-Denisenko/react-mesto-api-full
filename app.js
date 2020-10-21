@@ -1,4 +1,6 @@
 const express = require('express'); // подключаю express
+
+const app = express(); // создаю приложение на express
 const mongoose = require('mongoose'); // подключаю mongoose
 require('dotenv').config();
 const bodyParser = require('body-parser'); // подключаю body-parser
@@ -14,7 +16,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/not-found-err');
 
-const app = express(); // создаю приложение на express
+const { PORT = 3000 } = process.env; // слущаю порт
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюсь к серверу mongo
   useNewUrlParser: true,
@@ -23,42 +25,43 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюс�
   useUnifiedTopology: true,
 })
   .then(() => {
+    // eslint-disable-next-line no-console
     console.log('База данных подключена');
   })
   .catch((err) => {
+    // eslint-disable-next-line no-console
     console.log(`Ошибка подключения базы данных: ${err}`);
   });
-
-const { PORT = 3000 } = process.env; // слущаю порт
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
   max: 100, // можно совершить максимум 100 запросов с одного IP
 });
 
-app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
-
-app.use(function(req, res, next) {
-  res.header(
-    'Access-Control-Allow-Origin', '*',
-  );
-  res.header(
-    'Access-Control-Allow-Credentials', true,
-  );
-  res.header(
-    'Access-Control-Allow-Methods',
-    'GET,PUT,POST,DELETE,OPTIONS',
-  );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
-  );
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header(
+//     'Access-Control-Allow-Origin', '*',
+//   );
+//   res.header(
+//     'Access-Control-Allow-Credentials', true,
+//   );
+//   res.header(
+//     'Access-Control-Allow-Methods',
+//     'GET,PUT,POST,DELETE,OPTIONS',
+//   );
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
+//   );
+//   next();
+// });
 
 app.use(require('cors')());
 // app.use(require('cors')({ origin: 'https://world.students.nomoreparties.xyz' }));
 // const path = require('path');
+
+app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
+
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
@@ -79,6 +82,10 @@ unknownPageRouter.all('*', (req, res, next) => {
 //   };
 //   next();
 // });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(requestLogger); // Подключение логера запросов
 app.use(limiter); // подключtение rate-limiter
 
@@ -112,8 +119,7 @@ app.use(limiter); // подключtение rate-limiter
 // });
 
 // Роутинг
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post('/signin', celebrate({
   [Segments.BODY]: Joi.object().keys({
     email: Joi.string().email({ tlds: { allow: false } }).required(),
@@ -150,7 +156,7 @@ app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console
   console.log('сработала централизованная обработка ошибок');
   const { statusCode = 500, message } = err;
-  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка ЙЦ' : message });
 });
 
 app.listen(PORT, () => {
