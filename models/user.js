@@ -15,13 +15,15 @@ const userSchema = new mongoose.Schema({ // Создаю схему userSchema
     type: String,
     minlength: 2,
     maxlength: 30,
-    // required: true,
+    required: true,
+    default: () => 'Enter youre name here',
   },
   about: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    // required: true,
+    required: true,
+    default: () => 'Say something about you',
   },
   avatar: {
     type: String,
@@ -32,7 +34,8 @@ const userSchema = new mongoose.Schema({ // Создаю схему userSchema
       // validator: (v) => regex.test(v),
       // message: (props) => `${props.value} is not a valid URL!`, // console.log или alert
     },
-    // required: true,
+    required: true,
+    default: () => 'https://img2.freepng.ru/20180411/aye/kisspng-emoticon-smiley-computer-icons-laugh-5ace48537c39e4.6250520715234683715088.jpg',
   },
   email: {
     type: String,
