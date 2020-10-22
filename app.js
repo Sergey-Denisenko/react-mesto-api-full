@@ -120,23 +120,25 @@ app.use(limiter); // подключtение rate-limiter
 
 // Роутинг
 
-app.post('/signin', celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().min(8).required(),
-  }),
+app.post('/signin',
+// celebrate({
+//   [Segments.BODY]: Joi.object().keys({
+//     email: Joi.string().email({ tlds: { allow: false } }).required(),
+//     password: Joi.string().min(8).required(),
+//   }),
+
   // [Segments.QUERY]: {
   //   token: Joi.string().token().required(),
   // },
-}), login);
+  login);
 
 app.post('/signup',
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().email({ tlds: { allow: false } }).required(),
-      password: Joi.string().min(8).required(),
-    }).unknown(),
-  }),
+  // celebrate({
+  //   [Segments.BODY]: Joi.object().keys({
+  //     email: Joi.string().email({ tlds: { allow: false } }).required(),
+  //     password: Joi.string().min(8).required(),
+  //   }).unknown(),
+  // }),
   createUser);
 
 // app.use(auth);
