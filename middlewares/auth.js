@@ -28,6 +28,8 @@ module.exports = (req, res, next) => {
     console.log('payload in Auth.js back');
     console.log(payload);
   } catch (err) {
+    console.log('err in Auth.js back');
+    console.log(err);
     // return res.status(401).send({ message: 'Необходима авторизация 2' });
     next(new AuthError('Unauthorized / Необходима авторизация 2')); // 401
   }
