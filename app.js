@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); // подключаю body-parser
 const unknownPageRouter = require('express').Router(); // создаю роутер для запроса неизвестного адреса на сервере
 const {
   celebrate, Joi, errors,
-  // Segments,
+  Segments,
 } = require('celebrate'); // Ваидация входящих запросов
 const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
 const rateLimit = require('express-rate-limit'); // Модуль ограничения количества запросов
@@ -123,22 +123,23 @@ app.use(limiter); // подключtение rate-limiter
 
 app.post('/signin',
   celebrate({
-  // [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().min(8).required(),
-  }),
+    [Segments.BODY]: Joi.object().keys({
+      email: Joi.string().email({ tlds: { allow: false } }).required(),
+      password: Joi.string().min(8).required(),
+    }),
 
   // [Segments.QUERY]: {
   //   token: Joi.string().token().required(),
-  // },
+  }),
   login);
 
 app.post('/signup',
   celebrate({
-  //   [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email({ tlds: { allow: false } }).required(),
-    password: Joi.string().min(8).required(),
-  //   }).unknown(),
+    [Segments.BODY]: Joi.object().keys({
+      email: Joi.string().email({ tlds: { allow: false } }).required(),
+      password: Joi.string().min(8).required(),
+    }),
+    // .unknown(),
   }),
   createUser);
 
