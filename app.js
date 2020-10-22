@@ -6,7 +6,8 @@ require('dotenv').config();
 const bodyParser = require('body-parser'); // подключаю body-parser
 const unknownPageRouter = require('express').Router(); // создаю роутер для запроса неизвестного адреса на сервере
 const {
-  celebrate, Joi, errors, Segments,
+  celebrate, Joi, errors,
+  // Segments,
 } = require('celebrate'); // Ваидация входящих запросов
 const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
 const rateLimit = require('express-rate-limit'); // Модуль ограничения количества запросов
@@ -121,11 +122,11 @@ app.use(limiter); // подключtение rate-limiter
 // Роутинг
 
 app.post('/signin',
-// celebrate({
-//   [Segments.BODY]: Joi.object().keys({
-//     email: Joi.string().email({ tlds: { allow: false } }).required(),
-//     password: Joi.string().min(8).required(),
-//   }),
+  celebrate({
+  // [Segments.BODY]: Joi.object().keys({
+    email: Joi.string().email({ tlds: { allow: false } }).required(),
+    password: Joi.string().min(8).required(),
+  }),
 
   // [Segments.QUERY]: {
   //   token: Joi.string().token().required(),
@@ -133,17 +134,17 @@ app.post('/signin',
   login);
 
 app.post('/signup',
-  // celebrate({
+  celebrate({
   //   [Segments.BODY]: Joi.object().keys({
-  //     email: Joi.string().email({ tlds: { allow: false } }).required(),
-  //     password: Joi.string().min(8).required(),
+    email: Joi.string().email({ tlds: { allow: false } }).required(),
+    password: Joi.string().min(8).required(),
   //   }).unknown(),
-  // }),
+  }),
   createUser);
 
 // app.use(auth);
-app.use('/users', usersRouter); // Запуск usersRouter с авторизацией
-app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
+app.use('/users', auth, usersRouter); // Запуск usersRouter с авторизацией
+app.use('/cards', auth, cardsRouter); // Запуск cardsRouter с авторизацией
 app.use(unknownPageRouter); // Запуск unknownPageRouter
 
 // Подключение логера ошибок
