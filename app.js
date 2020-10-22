@@ -140,8 +140,8 @@ app.post('/signup',
   createUser);
 
 // app.use(auth);
-app.use('/users', auth, usersRouter); // Запуск usersRouter с авторизацией
-app.use('/cards', auth, cardsRouter); // Запуск cardsRouter с авторизацией
+app.use('/users', usersRouter); // Запуск usersRouter с авторизацией
+app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
 app.use(unknownPageRouter); // Запуск unknownPageRouter
 
 // Подключение логера ошибок
