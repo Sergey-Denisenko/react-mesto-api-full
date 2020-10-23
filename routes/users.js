@@ -32,4 +32,12 @@ usersRouter.patch('/me/avatar', celebrate({
   }).unknown(),
 }), updateAvatarUser); // обновляю аватар
 
+// --------------
+// usersRouter.get('/', celebrate({
+//   [Segments.BODY]: Joi.object().keys({
+//     name: Joi.string().min(2).max(30).required(),
+//     about: Joi.string().min(2).max(30).required(),
+//   }).unknown(),
+// }), updateProfileUser); // обновляю профиль
+//---------------
 module.exports = usersRouter;

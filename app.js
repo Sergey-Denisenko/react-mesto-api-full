@@ -146,6 +146,9 @@ app.post('/signup',
 // app.use(auth);
 app.use('/users', auth, usersRouter); // Запуск usersRouter с авторизацией
 app.use('/cards', auth, cardsRouter); // Запуск cardsRouter с авторизацией
+//-----
+// app.use('/users/me', auth, usersRouter);
+//-----
 app.use(unknownPageRouter); // Запуск unknownPageRouter
 
 // Подключение логера ошибок
