@@ -12,7 +12,7 @@ const {
 const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
 const rateLimit = require('express-rate-limit'); // Модуль ограничения количества запросов
 const { createUser, login } = require('./controllers/users');
-const auth = require('./middlewares/auth');
+const { auth } = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/not-found-err');
