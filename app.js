@@ -67,9 +67,9 @@ const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
 // eslint-disable-next-line no-console
-console.log('process.env.NODE_ENV - в app.js');
+// console.log('process.env.NODE_ENV - в app.js');
 // eslint-disable-next-line no-console
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 // Роутер для запроса неизвестного адреса на сервере
 unknownPageRouter.all('*', (req, res, next) => {
   // res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
