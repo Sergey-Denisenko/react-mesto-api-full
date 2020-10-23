@@ -5,7 +5,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const AuthError = require('../errors/auth-error');
 
 // eslint-disable-next-line consistent-return
-module.exports = (req, res, next) => {
+module.exports.auth = (req, res, next) => {
   console.log('req in Auth.js back');
   console.log(req);
   console.log('req.headers in Auth.js back');
@@ -16,6 +16,8 @@ module.exports = (req, res, next) => {
   console.log(authorization);
   if (!authorization && !authorization.startsWith('Bearer ')) {
     // return res.status(401).send({ message: 'Необходима авторизация 1' });
+    console.log('res error in Auth.js back');
+    console.log(res);
     next(new AuthError('Unauthorized / Необходима авторизация 1')); // 401
   }
 
