@@ -151,6 +151,8 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
+  console.log('req.body in Login');
+  console.log(req.body);
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
