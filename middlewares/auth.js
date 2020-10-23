@@ -6,6 +6,11 @@ const AuthError = require('../errors/auth-error');
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
+  console.log('req in Auth.js back');
+  console.log(req);
+  console.log('req.headers in Auth.js back');
+  console.log(req.headers);
+
   const { authorization } = req.headers;
   console.log('authorization in Auth.js back');
   console.log(authorization);
