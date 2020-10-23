@@ -13,7 +13,7 @@ const getAllCards = (req, res, next) => {
     .catch((err) => {
       if (err.message === 'CanNotLoadCards') {
         // return res.status(404).send({ message: 'Not Found / Карточки не найдены' });
-        next(new NotFoundError('Not Found / Карточки не найдены')); // 404
+        next(new NotFoundError('Not Found / Карточки не найдены getAllCards')); // 404
       }
       // return res.status(500).send({ message: 'На сервере произошла ошибка' });
       next(err);
@@ -34,7 +34,7 @@ const createCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос createcard')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
@@ -51,7 +51,7 @@ const deleteCardById = (req, res, next) => {
     .catch((err) => {
       if (err.message === 'NothingToDelete') {
         // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден deleteCardById')); // 404
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
@@ -72,11 +72,11 @@ const addLikeCardById = (req, res, next) => {
     .catch((err) => {
       if (err.message === 'NoAddLike') {
         // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден addLikeCardById')); // 404
       } else if
       (err.name === 'CastError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос addLikeCardById')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
@@ -97,11 +97,11 @@ const deleteLikeCardById = (req, res, next) => {
     .catch((err) => {
       if (err.message === 'NoDeleteLike') {
         // res.status(404).send({ message: 'Not Found / Запрашиваемый ресурс не найден' });
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден deleteLikeCardById')); // 404
       } else if
       (err.name === 'CastError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос deleteLikeCardById')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
