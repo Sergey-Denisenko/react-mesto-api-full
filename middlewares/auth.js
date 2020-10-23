@@ -46,5 +46,7 @@ module.exports.auth = (req, res, next) => {
   }
 
   req.user = payload; // записываю пейлоуд в объект запроса
+  console.log('req.user = payload передан в next');
+  console.log(req.user);
   next(); // пускаю запрос дальше
 };
