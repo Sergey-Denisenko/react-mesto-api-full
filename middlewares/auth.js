@@ -14,14 +14,17 @@ module.exports.auth = (req, res, next) => {
   const { authorization } = req.headers;
   console.log('authorization in Auth.js back');
   console.log(authorization);
-  if (!authorization && !authorization.startsWith('Bearer ')) {
-    // return res.status(401).send({ message: 'Необходима авторизация 1' });
-    console.log('res error in Auth.js back');
-    console.log(res);
-    next(new AuthError('Unauthorized / Необходима авторизация 1')); // 401
-  }
+  // if (!authorization && !authorization.startsWith('Bearer ')) {
+  //   // return res.status(401).send({ message: 'Необходима авторизация 1' });
+  //   console.log('res error in Auth.js back');
+  //   console.log(res);
+  //   next(new AuthError('Unauthorized / Необходима авторизация 1')); // 401
+  // }
 
-  const token = authorization.replace('Bearer ', '');
+  // const token = authorization.replace('Bearer ', '');
+
+  const token = req.headers.authorization && req.headers.authorization.replace('Bearer ', '');
+
   console.log('token in Auth.js back');
   console.log(token);
   let payload;
