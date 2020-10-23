@@ -119,6 +119,7 @@ const updateProfileUser = (req, res, next) => { // роутер редактир
         next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        console.log('ошибка 500 вываливается в updateProfileUser файла controllers->users.js');
         next(err); // 500
       }
     });
