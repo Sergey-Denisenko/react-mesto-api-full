@@ -9,7 +9,7 @@ const {
   // createUser,
 } = require('../controllers/users');
 
-usersRouter.get('/', getAllUsers);
+// usersRouter.get('/', getAllUsers);
 
 usersRouter.get('/:userId', celebrate({
   [Segments.BODY]: Joi.object().keys({

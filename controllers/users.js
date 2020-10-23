@@ -15,7 +15,7 @@ const getAllUsers = (req, res, next) => { // роутер чтения доку�
     .catch((err) => {
       if (err.message === 'GetUsersError') {
         // res.status(404).send({ message: 'Not Found / Пользователи не найдены' });
-        next(new NotFoundError('Not Found / Пользователи не найдены')); // 404
+        next(new NotFoundError('Not Found / Пользователи не найдены 87')); // 404
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err); // 500
@@ -31,10 +31,10 @@ const getUserById = (req, res, next) => { // роутер чтения доку�
     .catch((err) => {
       if (err.message === 'NoUserId') {
         // res.status(404).send({ message: 'User Id Not Found / Нет пользователя с таким Id' });
-        next(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')); // 404
+        next(new NotFoundError('User Id Not Found / Нет пользователя с таким Id 44')); // 404
       } else if (err.name === 'CastError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос 56')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err); // 500
@@ -113,10 +113,10 @@ const updateProfileUser = (req, res, next) => { // роутер редактир
     .catch((err) => {
       if (err.message === 'UpdateUserError') {
         // res.status(404).send({ message: 'Not Found / Пользователь не найден' });
-        next(new NotFoundError('Not Found / Пользователь не найден')); // 404
+        next(new NotFoundError('Not Found / Пользователь не найден 31')); // 404
       } else if (err.name === 'ValidationError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос 58')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         console.log('ошибка 500 вываливается в updateProfileUser файла controllers->users.js');
@@ -137,10 +137,10 @@ const updateAvatarUser = (req, res, next) => { // роутер редактир�
     .catch((err) => {
       if (err.message === 'UpdateUserError') {
         // res.status(404).send({ message: 'Not Found / Пользователь не найден' });
-        next(new NotFoundError('Not Found / Пользователь не найден')); // 404
+        next(new NotFoundError('Not Found / Пользователь не найден 96')); // 404
       } else if (err.name === 'ValidationError') {
         // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+        next(new BadRequestError('Bad Request / Неверный запрос 97')); // 400
       } else {
         // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err); // 500
