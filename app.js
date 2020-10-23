@@ -63,7 +63,7 @@ app.use(require('cors')());
 
 app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 
-const usersRouter = require('./routes/users.js');
+const { usersRouter, meRouter } = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
 // eslint-disable-next-line no-console
@@ -115,6 +115,7 @@ app.post('/signup',
   createUser);
 
 app.use(auth);
+app.use('/users/me', meRouter); // Запуск usersRouter с авторизацией
 app.use('/users', usersRouter); // Запуск usersRouter с авторизацией
 app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
 //-----

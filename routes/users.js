@@ -1,4 +1,4 @@
-const usersRouter = require('express').Router(); // создание роутера для работы с пользователями
+const { usersRouter, meRouter } = require('express').Router(); // создание роутера для работы с пользователями
 const {
   celebrate, Joi,
   Segments,
@@ -40,4 +40,13 @@ usersRouter.patch('/me/avatar', celebrate({
 //   }).unknown(),
 // }), updateProfileUser); // обновляю профиль
 //---------------
-module.exports = usersRouter;
+
+meRouter.GET('/', celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    userId: Joi.string().alphanum().length(24),
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
+  }).unknown(),
+}), getUserById); // обновляю профиль
+
+module.exports = { usersRouter, meRouter };
