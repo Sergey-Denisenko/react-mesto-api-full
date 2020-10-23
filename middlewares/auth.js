@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+// const { NODE_ENV, JWT_SECRET } = process.env;
 
 const AuthError = require('../errors/auth-error');
 
@@ -23,14 +23,17 @@ module.exports.auth = (req, res, next) => {
 
   // const token = authorization.replace('Bearer ', '');
 
-  const token = req.headers.authorization && req.headers.authorization.replace('Bearer ', '');
+  // const token = req.headers.authorization && req.headers.authorization.replace('Bearer ', '');
+  const token = authorization && authorization.replace('Bearer ', '');
 
   console.log('token in Auth.js back');
   console.log(token);
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+    // eslint-disable-next-line max-len
+    // payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+    payload = jwt.verify(token, 'dev-key');
     // eslint-disable-next-line no-console
     console.log('process.env.NODE_ENV - в auth.js');
     // eslint-disable-next-line no-console
