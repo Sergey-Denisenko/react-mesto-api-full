@@ -201,6 +201,25 @@ const login = (req, res, next) => {
   //   });
 };
 
+const getMeById = (req, res, next) => { // роутер чтения документа
+  User.findById(req.user._id) // нахожу пользователя по запросу параметра id
+    .orFail(new Error('NoUserId'))
+    .then((user) => res.status(200).send({ data: user }))
+    // eslint-disable-next-line no-unused-vars
+    .catch((err) => {
+      if (err.message === 'NoUserId') {
+        // res.status(404).send({ message: 'User Id Not Found / Нет пользователя с таким Id' });
+        next(new NotFoundError('User Id Not Found / Нет пользователя с таким Id 4444')); // 404
+      } else if (err.name === 'CastError') {
+        // res.status(400).send({ message: 'Bad Request / Неверный запрос' });
+        next(new BadRequestError('Bad Request / Неверный запрос 5656')); // 400
+      } else {
+        // res.status(500).send({ message: 'На сервере произошла ошибка' });
+        next(err); // 500
+      }
+    });
+};
+
 module.exports = {
-  getAllUsers, getUserById, createUser, updateProfileUser, updateAvatarUser, login,
+  getAllUsers, getUserById, createUser, updateProfileUser, updateAvatarUser, login, getMeById,
 };

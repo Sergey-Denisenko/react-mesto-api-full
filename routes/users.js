@@ -5,11 +5,17 @@ const {
 } = require('celebrate'); // Ваидация входящих запросов
 
 const {
-  getAllUsers, getUserById, updateProfileUser, updateAvatarUser,
+  getAllUsers, getUserById, updateProfileUser, updateAvatarUser, getMeById,
   // createUser,
 } = require('../controllers/users');
 
 // usersRouter.get('/', getAllUsers);
+
+meRouter.get('/', celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    userId: Joi.string().alphanum().length(24),
+  }).unknown(),
+}), getMeById);
 
 usersRouter.get('/:userId', celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -40,13 +46,5 @@ usersRouter.patch('/me/avatar', celebrate({
 //   }).unknown(),
 // }), updateProfileUser); // обновляю профиль
 //---------------
-
-meRouter.GET('/', celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    userId: Joi.string().alphanum().length(24),
-    name: Joi.string().min(2).max(30).required(),
-    about: Joi.string().min(2).max(30).required(),
-  }).unknown(),
-}), getUserById); // обновляю профиль
 
 module.exports = { usersRouter, meRouter };
