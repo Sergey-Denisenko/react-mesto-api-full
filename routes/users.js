@@ -1,11 +1,13 @@
-const { usersRouter, meRouter } = require('express').Router(); // создание роутера для работы с пользователями
+const usersRouter = require('express').Router(); // создание роутера для работы с пользователями
+const meRouter = require('express').Router();
 const {
   celebrate, Joi,
   Segments,
 } = require('celebrate'); // Ваидация входящих запросов
 
 const {
-  getAllUsers, getUserById, updateProfileUser, updateAvatarUser, getMeById,
+  // getAllUsers,
+  getUserById, updateProfileUser, updateAvatarUser, getMeById,
   // createUser,
 } = require('../controllers/users');
 
