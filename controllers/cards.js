@@ -34,7 +34,8 @@ const createCard = (req, res, next) => {
     name, link, owner: ownerId, likes,
   })
     .then((cardItem) => {
-      res.send({ data: cardItem });
+      // res.send({ data: cardItem });
+      res.send(cardItem);
     })
     // eslint-disable-next-line no-unused-vars
     .catch((err) => {
@@ -52,7 +53,8 @@ const deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .orFail(new Error('NothingToDelete'))
     .then((cardItem) => {
-      res.send({ data: cardItem });
+      // res.send({ data: cardItem });
+      res.send(cardItem);
     })
     .catch((err) => {
       if (err.message === 'NothingToDelete') {
@@ -73,7 +75,8 @@ const addLikeCardById = (req, res, next) => {
   )
     .orFail(new Error('NoAddLike'))
     .then((addlike) => {
-      res.send({ data: addlike });
+      // res.send({ data: addlike });
+      res.send(addlike);
     })
     .catch((err) => {
       if (err.message === 'NoAddLike') {
@@ -98,7 +101,8 @@ const deleteLikeCardById = (req, res, next) => {
   )
     .orFail(new Error('NoDeleteLike'))
     .then((deletelike) => {
-      res.send({ data: deletelike });
+      // res.send({ data: deletelike });
+      res.send(deletelike);
     })
     .catch((err) => {
       if (err.message === 'NoDeleteLike') {
