@@ -20,13 +20,15 @@ cardsRouter.post('/', celebrate({
   }).unknown(),
 }), createCard);
 
-cardsRouter.put('/:cardId/likes', celebrate({
+// cardsRouter.put('/:cardId/likes', celebrate({
+cardsRouter.put('/likes/:cardId', celebrate({
   [Segments.BODY]: Joi.object().keys({
     cardId: Joi.string().alphanum().length(24),
   }).unknown(),
 }), addLikeCardById); // поставить лайк карточке
 
-cardsRouter.delete('/:cardId/likes', celebrate({
+// cardsRouter.delete('/:cardId/likes', celebrate({
+cardsRouter.delete('/likes/:cardId', celebrate({
   [Segments.BODY]: Joi.object().keys({
     cardId: Joi.string().alphanum().length(24),
   }).unknown(),
