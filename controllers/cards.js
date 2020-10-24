@@ -10,7 +10,7 @@ const getAllCards = (req, res, next) => {
       console.log(('cards в controller Cards.js -> getAllCards -> catch')); // 500)
       console.log((cards)); // 500)
       // res.send({ data: cards });
-      res.send({ data: cards });
+      res.send({ cards });
     })
     // eslint-disable-next-line no-unused-vars
     .catch((err) => {
