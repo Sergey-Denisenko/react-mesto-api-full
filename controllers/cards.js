@@ -7,10 +7,10 @@ const getAllCards = (req, res, next) => {
     .populate('owner')
     .orFail(new Error('CanNotLoadCards'))
     .then((cards) => {
-      console.log(('cards в controller Cards.js -> getAllCards -> catch')); // 500)
+      console.log(('cards в controller Cards.js -> getAllCards')); // 500)
       console.log((cards)); // 500)
       // res.send({ data: cards });
-      res.send({ cards });
+      res.send(cards);
     })
     // eslint-disable-next-line no-unused-vars
     .catch((err) => {
