@@ -7,6 +7,8 @@ const getAllCards = (req, res, next) => {
     .populate('owner')
     .orFail(new Error('CanNotLoadCards'))
     .then((cards) => {
+      console.log(('cards в controller Cards.js -> getAllCards -> catch')); // 500)
+      console.log((cards)); // 500)
       res.send({ data: cards });
     })
     // eslint-disable-next-line no-unused-vars
@@ -16,6 +18,7 @@ const getAllCards = (req, res, next) => {
         next(new NotFoundError('Not Found / Карточки не найдены getAllCards')); // 404
       }
       // return res.status(500).send({ message: 'На сервере произошла ошибка' });
+      console.log(('Ошибка 500 в controller Cards.js -> getAllCards -> catch')); // 500)
       next(err);
     });
 };
