@@ -68,8 +68,8 @@ const deleteCardById = (req, res, next) => {
 };
 
 const addLikeCardById = (req, res, next) => {
-  console.log('req in addLikeCardById');
-  console.log(req);
+  console.log('req.user._id in addLikeCardById');
+  console.log(req.user._id);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
