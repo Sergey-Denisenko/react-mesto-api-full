@@ -118,6 +118,10 @@ app.use(auth);
 app.use('/users/me', meRouter); // Запуск usersRouter с авторизацией
 app.use('/users', usersRouter); // Запуск usersRouter с авторизацией
 app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
+
+const { getAllCards } = require('./controllers/cards');
+
+app.get('/', getAllCards);
 //-----
 // app.use('/users/me', auth, usersRouter);
 //-----

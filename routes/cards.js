@@ -6,11 +6,11 @@ const {
   getAllCards, createCard, deleteCardById, addLikeCardById, deleteLikeCardById,
 } = require('../controllers/cards');
 
-cardsRouter.get('/', celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    owner: Joi.required(),
-  }).unknown(),
-}), getAllCards);
+// cardsRouter.get('/', celebrate({
+//   [Segments.BODY]: Joi.object().keys({
+//     owner: Joi.required(),
+//   }).unknown(),
+// }), getAllCards);
 
 cardsRouter.post('/', celebrate({
   [Segments.BODY]: Joi.object().keys({
