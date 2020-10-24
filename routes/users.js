@@ -6,7 +6,7 @@ const {
 } = require('celebrate'); // Ваидация входящих запросов
 
 const {
-  // getAllUsers,
+  // getAllUsers,git
   getUserById, updateProfileUser, updateAvatarUser, getMeById,
   // createUser,
 } = require('../controllers/users');

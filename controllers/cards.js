@@ -21,6 +21,8 @@ const getAllCards = (req, res, next) => {
 };
 
 const createCard = (req, res, next) => {
+  console.log('req in Cards.js->createCard');
+  console.log(req);
   const {
     name, link, ownerId = req.user._id, likes,
   } = req.body;
