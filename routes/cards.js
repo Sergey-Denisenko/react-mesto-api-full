@@ -16,7 +16,7 @@ cardsRouter.post('/', celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
     link: Joi.string().required(),
-    owner: Joi.required(),
+    // owner: Joi.required(),
   }).unknown(),
 }), createCard);
 
