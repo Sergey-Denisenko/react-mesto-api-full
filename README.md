@@ -18,6 +18,7 @@ ____
 ____
 
 Рабочий сайт проекта Mesto, размещенный на Яндекс.Облаке: https://world.students.nomoreparties.xyz
+Публичный адрес IPv4 178.154.225.88
 
 Репозиторий Backend: https://github.com/Sergey-Denisenko/react-mesto-api-full.git
 
