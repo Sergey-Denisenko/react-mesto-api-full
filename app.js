@@ -36,61 +36,33 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { // подключаюс�
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
-  max: 1000, // можно совершить максимум 100 запросов с одного IP
+  max: 1000, // можно совершить максимум 1000 запросов с одного IP
 });
 
-// app.use((req, res, next) => {
-//   res.header(
-//     'Access-Control-Allow-Origin', '*',
-//   );
-//   res.header(
-//     'Access-Control-Allow-Credentials', true,
-//   );
-//   res.header(
-//     'Access-Control-Allow-Methods',
-//     'GET,PUT,POST,DELETE,OPTIONS',
-//   );
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
-//   );
-//   next();
-// });
-
 app.use(require('cors')());
-// app.use(require('cors')({ origin: 'https://world.students.nomoreparties.xyz' }));
-// const path = require('path');
 
 app.use(helmet()); // Мидлвэр автоматической простановки заголовков безопасности
 
 const { usersRouter, meRouter } = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
 
-// eslint-disable-next-line no-console
-// console.log('process.env.NODE_ENV - в app.js');
-// eslint-disable-next-line no-console
-// console.log(process.env.NODE_ENV);
 // Роутер для запроса неизвестного адреса на сервере
 unknownPageRouter.all('*', (req, res, next) => {
-  // res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-  next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден 001')); // 404
+  next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
 });
-
-// eslint-disable-next-line max-len
-// app.use((req, res, next) => { // Временное решение авторизации, мидлвэр который добавляет в каждый запрос объект user
-//   req.user = {
-//     _id: '5f66030c4209ed3107201166', // _id тестового пользователя
-//   };
-//   next();
-// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(requestLogger); // Подключение логера запросов
 app.use(limiter); // подключtение rate-limiter
 
 // Роутинг
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin',
   celebrate({
@@ -98,9 +70,6 @@ app.post('/signin',
       email: Joi.string().email({ tlds: { allow: false } }).required(),
       password: Joi.string().min(8).required(),
     }),
-
-  // [Segments.QUERY]: {
-  //   token: Joi.string().token().required(),
   }),
   login);
 
@@ -110,7 +79,6 @@ app.post('/signup',
       email: Joi.string().email({ tlds: { allow: false } }).required(),
       password: Joi.string().min(8).required(),
     }),
-    // .unknown(),
   }),
   createUser);
 
@@ -122,9 +90,7 @@ app.use('/cards', cardsRouter); // Запуск cardsRouter с авториза�
 const { getAllCards } = require('./controllers/cards');
 
 app.get('/', getAllCards);
-//-----
-// app.use('/users/me', auth, usersRouter);
-//-----
+
 app.use(unknownPageRouter); // Запуск unknownPageRouter
 
 // Подключение логера ошибок

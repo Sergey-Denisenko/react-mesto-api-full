@@ -6,12 +6,9 @@ const {
 } = require('celebrate'); // Ваидация входящих запросов
 
 const {
-  // getAllUsers,git
   getUserById, updateProfileUser, updateAvatarUser, getMeById,
-  // createUser,
-} = require('../controllers/users');
 
-// usersRouter.get('/', getAllUsers);
+} = require('../controllers/users');
 
 meRouter.get('/', celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -24,7 +21,6 @@ usersRouter.get('/:userId', celebrate({
     userId: Joi.string().alphanum().length(24),
   }),
 }), getUserById);
-// usersRouter.post('/', createUser);
 
 usersRouter.patch('/me', celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -39,14 +35,5 @@ usersRouter.patch('/me/avatar', celebrate({
     avatar: Joi.string().pattern(/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?#?$/).required(),
   }).unknown(),
 }), updateAvatarUser); // обновляю аватар
-
-// --------------
-// usersRouter.get('/', celebrate({
-//   [Segments.BODY]: Joi.object().keys({
-//     name: Joi.string().min(2).max(30).required(),
-//     about: Joi.string().min(2).max(30).required(),
-//   }).unknown(),
-// }), updateProfileUser); // обновляю профиль
-//---------------
 
 module.exports = { usersRouter, meRouter };
