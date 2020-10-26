@@ -35,7 +35,7 @@ const createCard = (req, res, next) => {
 
 const deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
+    .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((cardItem) => {
       res.send(cardItem);
     })
@@ -48,7 +48,7 @@ const addLikeCardById = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
+    .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((addlike) => {
       res.send(addlike);
     })
@@ -71,7 +71,7 @@ const deleteLikeCardById = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
+    .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((deletelike) => {
       // res.send({ data: deletelike });
       res.send(deletelike);

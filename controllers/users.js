@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // const crypto = require('crypto');
 const User = require('../models/user'); // импортирую модель user
+// eslint-disable-next-line no-unused-vars
 const BadRequestError = require('../errors/bad-requet-error'); // 400
 const NotFoundError = require('../errors/not-found-err'); // 404
 const ConflictError = require('../errors/conflict-error'); // 409
@@ -25,7 +26,7 @@ const getAllUsers = (req, res, next) => { // роутер чтения доку�
 
 const getUserById = (req, res, next) => { // роутер чтения документа
   User.findById(req.params.userId) // нахожу пользователя по запросу параметра id
-    .orFail(new Error(NotFoundError('User Id Not Found / Нет пользователя с таким Id'))) // 404
+    .orFail(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')) // 404
     .then((user) => res.status(200).send({ data: user }))
     // eslint-disable-next-line no-unused-vars
     // .catch((err) => {
@@ -61,9 +62,9 @@ const createUser = (req, res, next) => { // роутер создания док
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
         next(new ConflictError('Conflict / Пользователь с таким email уже существует')); // 400
-      } else
-      if (err.name === 'ValidationError' || err.message === 'is not a valid email!') {
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+      // } else
+      // if (err.name === 'ValidationError' || err.message === 'is not a valid email!') {
+      //   next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else next(err); // 500
     });
 };
@@ -72,7 +73,7 @@ const updateProfileUser = (req, res, next) => { // роутер редактир
   const { name, about } = req.body; // получаю из объекта запроса данные:имя,описание,avatar
   // создаю обновленный документ на основе пришедших данных
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .orFail(new Error(NotFoundError('Not Found / Пользователь не найден'))) // 404
+    .orFail(new NotFoundError('Not Found / Пользователь не найден')) // 404
     .then((user) => {
       res.send({ data: user });
     })
@@ -93,7 +94,7 @@ const updateAvatarUser = (req, res, next) => { // роутер редактир�
   const { avatar } = req.body; // получаю из объекта запроса данные:имя,описание,avatar
   // создаю обновленный документ на основе пришедших данных
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .orFail(new Error(NotFoundError('Not Found / Пользователь не найден'))) // 404
+    .orFail(new NotFoundError('Not Found / Пользователь не найден')) // 404
     .then((userAvatar) => {
       res.send({ data: userAvatar });
     })
@@ -129,7 +130,7 @@ const login = (req, res, next) => {
 
 const getMeById = (req, res, next) => { // роутер чтения документа
   User.findById(req.user._id) // нахожу пользователя по запросу параметра id
-    .orFail(new Error(NotFoundError('User Id Not Found / Нет пользователя с таким Id'))) // 404
+    .orFail(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')) // 404
     .then((user) => res.status(200).send({ data: user }))
     // eslint-disable-next-line no-unused-vars
     // .catch((err) => {
