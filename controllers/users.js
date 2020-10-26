@@ -10,7 +10,6 @@ const getAllUsers = (req, res, next) => { // роутер чтения доку�
   User.find({}) // нахожу все пользователей
     .orFail(new Error('GetUsersError'))
     .then((users) => {
-      console.log(users);
       res.send({ data: users });
     })
     // eslint-disable-next-line no-unused-vars
@@ -51,7 +50,11 @@ const createUser = (req, res, next) => { // роутер создания док
       }); // создаю документ на основе пришедших данных
     })
     .then((user) => {
-      res.status(201).send(user);
+      // res.status(201).send(user);
+      res.status(201).send({
+        _id: user._id,
+        email: user.email,
+      });
     })
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
