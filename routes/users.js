@@ -29,7 +29,7 @@ usersRouter.get('/:userId', celebrate({
 
 usersRouter.patch('/me', celebrate({
   // [Segments.BODY]: Joi.object().keys({
-  params: Joi.object().keys({
+  body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
     about: Joi.string().min(2).max(30).required(),
   }).unknown(),
@@ -37,7 +37,7 @@ usersRouter.patch('/me', celebrate({
 
 usersRouter.patch('/me/avatar', celebrate({
   // [Segments.BODY]: Joi.object().keys({
-  params: Joi.object().keys({
+  body: Joi.object().keys({
   // eslint-disable-next-line no-useless-escape
     avatar: Joi.string().pattern(/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?#?$/).required(),
   }).unknown(),

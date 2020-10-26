@@ -10,7 +10,7 @@ const {
 
 cardsRouter.post('/', celebrate({
   // [Segments.BODY]: Joi.object().keys({
-  params: Joi.object().keys({
+  body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
     // link: Joi.string().required(),
     // eslint-disable-next-line no-useless-escape
