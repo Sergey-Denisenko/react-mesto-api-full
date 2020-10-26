@@ -47,7 +47,7 @@ const createUser = (req, res, next) => { // роутер создания док
       console.log('check 1');
       return User.create({
         email: req.body.email,
-        password: hash,
+        // password: hash,
       }); // создаю документ на основе пришедших данных
     })
     .then((user) => {
