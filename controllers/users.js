@@ -10,6 +10,7 @@ const getAllUsers = (req, res, next) => { // роутер чтения доку�
   User.find({}) // нахожу все пользователей
     .orFail(new Error('GetUsersError'))
     .then((users) => {
+      console.log(users);
       res.send({ data: users });
     })
     // eslint-disable-next-line no-unused-vars

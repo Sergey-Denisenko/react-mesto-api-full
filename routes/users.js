@@ -7,7 +7,7 @@ const {
 } = require('celebrate'); // Ваидация входящих запросов
 
 const {
-  getUserById, updateProfileUser, updateAvatarUser, getMeById,
+  getAllUsers, getUserById, updateProfileUser, updateAvatarUser, getMeById,
 
 } = require('../controllers/users');
 
@@ -18,6 +18,14 @@ meRouter.get('/', celebrate({
     userId: Joi.string().hex().length(24),
   }).unknown(),
 }), getMeById);
+
+usersRouter.get('/', celebrate({
+  // [Segments.BODY]: Joi.object().keys({
+  params: Joi.object().keys({
+    // userId: Joi.string().alphanum().length(24),
+    userId: Joi.string().hex().length(24),
+  }),
+}), getAllUsers);
 
 usersRouter.get('/:userId', celebrate({
   // [Segments.BODY]: Joi.object().keys({
