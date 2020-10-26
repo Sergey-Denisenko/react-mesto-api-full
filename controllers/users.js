@@ -8,7 +8,7 @@ const ConflictError = require('../errors/conflict-error'); // 409
 // eslint-disable-next-line no-unused-vars
 const getAllUsers = (req, res, next) => { // роутер чтения документа
   User.find({}) // нахожу все пользователей
-    .orFail(new Error(NotFoundError('Not Found / Пользователи не найдены'))) // 404
+    .orFail(new NotFoundError('Not Found / Пользователи не найдены')) // 404
     .then((users) => {
       res.send({ data: users });
     })

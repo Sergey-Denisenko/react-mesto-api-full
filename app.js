@@ -104,7 +104,7 @@ app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console
   console.log('сработала централизованная обработка ошибок');
   const { statusCode = 500, message } = err;
-  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
+  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка qwqwqw' : message });
 });
 
 app.listen(PORT, () => {

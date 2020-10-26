@@ -5,7 +5,8 @@ const NotFoundError = require('../errors/not-found-err'); // 404
 const getAllCards = (req, res, next) => {
   Card.find({})
     .populate('owner')
-    .orFail(new Error(NotFoundError('Not Found / Карточки не найдены'))) // 404
+    // .orFail(new Error(NotFoundError('Not Found / Карточки не найдены'))) // 404
+    .orFail(new NotFoundError('Not Found / Карточки не найдены')) // 404
     .then((cards) => {
       res.send(cards);
     })
