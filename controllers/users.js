@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user'); // импортирую модель user
 const BadRequestError = require('../errors/bad-requet-error'); // 400
 const NotFoundError = require('../errors/not-found-err'); // 404
+const ConflictError = require('../errors/conflict-error'); // 409
 // eslint-disable-next-line no-unused-vars
 const getAllUsers = (req, res, next) => { // роутер чтения документа
   User.find({}) // нахожу все пользователей
@@ -52,6 +53,9 @@ const createUser = (req, res, next) => { // роутер создания док
       res.status(201).send(user);
     })
     .catch((err) => {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        next(new ConflictError('Conflict / Пользователь с таким email уже существует')); // 400
+      } else
       if (err.name === 'ValidationError' || err.message === 'is not a valid email!') {
         next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else next(err); // 500
