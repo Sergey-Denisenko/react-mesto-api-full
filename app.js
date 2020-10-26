@@ -88,7 +88,6 @@ app.use('/users', usersRouter); // Запуск usersRouter с авториза�
 app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
 
 // const { getAllCards } = require('./controllers/cards');
-
 // app.get('/', getAllCards);
 
 app.use(unknownPageRouter); // Запуск unknownPageRouter
@@ -103,9 +102,9 @@ app.use(errors());
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console
-  console.log('сработала централизованная обработка ошибок 555');
+  console.log('сработала централизованная обработка ошибок');
   const { statusCode = 500, message } = err;
-  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка ЙЦ' : message });
+  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
 
 app.listen(PORT, () => {

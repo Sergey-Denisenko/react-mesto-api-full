@@ -5,17 +5,11 @@ const NotFoundError = require('../errors/not-found-err'); // 404
 const getAllCards = (req, res, next) => {
   Card.find({})
     .populate('owner')
-    .orFail(new Error('CanNotLoadCards'))
+    .orFail(new Error(NotFoundError('Not Found / Карточки не найдены'))) // 404
     .then((cards) => {
       res.send(cards);
     })
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => {
-      if (err.message === 'CanNotLoadCards') {
-        next(new NotFoundError('Not Found / Карточки не найдены')); // 404
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 const createCard = (req, res, next) => {
@@ -40,17 +34,11 @@ const createCard = (req, res, next) => {
 
 const deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .orFail(new Error('NothingToDelete'))
+    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
     .then((cardItem) => {
       res.send(cardItem);
     })
-    .catch((err) => {
-      if (err.message === 'NothingToDelete') {
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const addLikeCardById = (req, res, next) => {
@@ -59,20 +47,21 @@ const addLikeCardById = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-    .orFail(new Error('NoAddLike'))
+    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
     .then((addlike) => {
       res.send(addlike);
     })
-    .catch((err) => {
-      if (err.message === 'NoAddLike') {
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
-      } else if
-      (err.name === 'CastError') {
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-      } else {
-        next(err);
-      }
-    });
+    // .catch((err) => {
+    //   if (err.message === 'NoAddLike') {
+    //     next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+    //   } else if
+    //   (err.name === 'CastError') {
+    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+    //   } else {
+    //     next(err);
+    //   }
+    // });
+    .catch(next);
 };
 
 const deleteLikeCardById = (req, res, next) => {
@@ -81,21 +70,22 @@ const deleteLikeCardById = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
-    .orFail(new Error('NoDeleteLike'))
+    .orFail(new Error(NotFoundError('Not Found / Запрашиваемый ресурс не найден'))) // 404
     .then((deletelike) => {
       // res.send({ data: deletelike });
       res.send(deletelike);
     })
-    .catch((err) => {
-      if (err.message === 'NoDeleteLike') {
-        next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
-      } else if
-      (err.name === 'CastError') {
-        next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-      } else {
-        next(err);
-      }
-    });
+    // .catch((err) => {
+    //   if (err.message === 'NoDeleteLike') {
+    //     next(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')); // 404
+    //   } else if
+    //   (err.name === 'CastError') {
+    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
+    //   } else {
+    //     next(err);
+    //   }
+    // });
+    .catch(next);
 };
 
 module.exports = {
