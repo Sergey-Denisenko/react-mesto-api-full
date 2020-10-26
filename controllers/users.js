@@ -2,8 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // const crypto = require('crypto');
 const User = require('../models/user'); // импортирую модель user
-// eslint-disable-next-line no-unused-vars
-const BadRequestError = require('../errors/bad-requet-error'); // 400
+// const BadRequestError = require('../errors/bad-requet-error'); // 400
 const NotFoundError = require('../errors/not-found-err'); // 404
 const ConflictError = require('../errors/conflict-error'); // 409
 // eslint-disable-next-line no-unused-vars

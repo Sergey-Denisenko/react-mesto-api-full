@@ -7,8 +7,6 @@ const bodyParser = require('body-parser'); // подключаю body-parser
 const unknownPageRouter = require('express').Router(); // создаю роутер для запроса неизвестного адреса на сервере
 const {
   celebrate, Joi, errors,
-  // eslint-disable-next-line no-unused-vars
-  Segments,
 } = require('celebrate'); // Ваидация входящих запросов
 const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
 const rateLimit = require('express-rate-limit'); // Модуль ограничения количества запросов
