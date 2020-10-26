@@ -13,14 +13,6 @@ const getAllUsers = (req, res, next) => { // роутер чтения доку�
     .then((users) => {
       res.send({ data: users });
     })
-    // eslint-disable-next-line no-unused-vars
-    // .catch((err) => {
-    //   if (err.message === 'GetUsersError') {
-    //     next(new NotFoundError('Not Found / Пользователи не найдены')); // 404
-    //   } else {
-    //     next(err); // 500
-    //   }
-    // });
     .catch(next);
 };
 
@@ -28,16 +20,6 @@ const getUserById = (req, res, next) => { // роутер чтения доку�
   User.findById(req.params.userId) // нахожу пользователя по запросу параметра id
     .orFail(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')) // 404
     .then((user) => res.status(200).send({ data: user }))
-    // eslint-disable-next-line no-unused-vars
-    // .catch((err) => {
-    //   if (err.message === 'NoUserId') {
-    //     next(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')); // 404
-    //   } else if (err.name === 'CastError') {
-    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-    //   } else {
-    //     next(err); // 500
-    //   }
-    // });
     .catch(next);
 };
 
@@ -53,7 +35,6 @@ const createUser = (req, res, next) => { // роутер создания док
       }); // создаю документ на основе пришедших данных
     })
     .then((user) => {
-      // res.status(201).send(user);
       res.status(201).send({
         _id: user._id,
         email: user.email,
@@ -62,9 +43,6 @@ const createUser = (req, res, next) => { // роутер создания док
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
         next(new ConflictError('Conflict / Пользователь с таким email уже существует')); // 400
-      // } else
-      // if (err.name === 'ValidationError' || err.message === 'is not a valid email!') {
-      //   next(new BadRequestError('Bad Request / Неверный запрос')); // 400
       } else next(err); // 500
     });
 };
@@ -77,16 +55,6 @@ const updateProfileUser = (req, res, next) => { // роутер редактир
     .then((user) => {
       res.send({ data: user });
     })
-    // eslint-disable-next-line no-unused-vars
-    // .catch((err) => {
-    //   if (err.message === 'UpdateUserError') {
-    //     next(new NotFoundError('Not Found / Пользователь не найден')); // 404
-    //   } else if (err.name === 'ValidationError') {
-    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-    //   } else {
-    //     next(err); // 500
-    //   }
-    // });
     .catch(next);
 };
 
@@ -98,16 +66,6 @@ const updateAvatarUser = (req, res, next) => { // роутер редактир�
     .then((userAvatar) => {
       res.send({ data: userAvatar });
     })
-    // eslint-disable-next-line no-unused-vars
-    // .catch((err) => {
-    //   if (err.message === 'UpdateUserError') {
-    //     next(new NotFoundError('Not Found / Пользователь не найден')); // 404
-    //   } else if (err.name === 'ValidationError') {
-    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-    //   } else {
-    //     next(err); // 500
-    //   }
-    // });
     .catch(next);
 };
 
@@ -132,16 +90,6 @@ const getMeById = (req, res, next) => { // роутер чтения докум�
   User.findById(req.user._id) // нахожу пользователя по запросу параметра id
     .orFail(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')) // 404
     .then((user) => res.status(200).send({ data: user }))
-    // eslint-disable-next-line no-unused-vars
-    // .catch((err) => {
-    //   if (err.message === 'NoUserId') {
-    //     next(new NotFoundError('User Id Not Found / Нет пользователя с таким Id')); // 404
-    //   } else if (err.name === 'CastError') {
-    //     next(new BadRequestError('Bad Request / Неверный запрос')); // 400
-    //   } else {
-    //     next(err); // 500
-    //   }
-    // });
     .catch(next);
 };
 

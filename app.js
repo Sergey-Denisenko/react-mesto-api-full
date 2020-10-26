@@ -7,6 +7,7 @@ const bodyParser = require('body-parser'); // подключаю body-parser
 const unknownPageRouter = require('express').Router(); // создаю роутер для запроса неизвестного адреса на сервере
 const {
   celebrate, Joi, errors,
+  // eslint-disable-next-line no-unused-vars
   Segments,
 } = require('celebrate'); // Ваидация входящих запросов
 const helmet = require('helmet'); // Модуль автоматической простановки заголовков безопасности
@@ -66,7 +67,7 @@ app.get('/crash-test', () => {
 
 app.post('/signin',
   celebrate({
-    [Segments.BODY]: Joi.object().keys({
+    body: Joi.object().keys({
       email: Joi.string().email({ tlds: { allow: false } }).required(),
       password: Joi.string().min(8).required(),
     }),
@@ -75,7 +76,7 @@ app.post('/signin',
 
 app.post('/signup',
   celebrate({
-    [Segments.BODY]: Joi.object().keys({
+    body: Joi.object().keys({
       email: Joi.string().email({ tlds: { allow: false } }).required(),
       password: Joi.string().min(8).required(),
     }),
@@ -86,9 +87,6 @@ app.use(auth);
 app.use('/users/me', meRouter); // Запуск usersRouter с авторизацией
 app.use('/users', usersRouter); // Запуск usersRouter с авторизацией
 app.use('/cards', cardsRouter); // Запуск cardsRouter с авторизацией
-
-// const { getAllCards } = require('./controllers/cards');
-// app.get('/', getAllCards);
 
 app.use(unknownPageRouter); // Запуск unknownPageRouter
 
@@ -104,7 +102,7 @@ app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console
   console.log('сработала централизованная обработка ошибок');
   const { statusCode = 500, message } = err;
-  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка qwqwqw' : message });
+  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
 
 app.listen(PORT, () => {
