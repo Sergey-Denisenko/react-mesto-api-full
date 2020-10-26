@@ -19,6 +19,8 @@ cardsRouter.post('/', celebrate({
   }).unknown(),
 }), createCard);
 
+cardsRouter.get('/', getAllCards);
+
 cardsRouter.put('/:cardId/likes', celebrate({
 // cardsRouter.put('/likes/:cardId', celebrate({
   // [Segments.BODY]: Joi.object().keys({
