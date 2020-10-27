@@ -17,8 +17,7 @@ const createCard = (req, res, next) => {
     name, link, ownerId = req.user._id, likes,
   } = req.body;
   Card.create({
-    // name, link, owner: ownerId, likes,
-    name, link, owner: { _id: ownerId }, likes,
+    name, link, owner: ownerId, likes,
   })
     .then((cardItem) => {
       res.send(cardItem);
@@ -51,8 +50,6 @@ const addLikeCardById = (req, res, next) => {
     .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((addlike) => {
       res.send(addlike);
-      console.log('addlike');
-      console.log(addlike);
     })
     .catch(next);
 };
@@ -66,8 +63,6 @@ const deleteLikeCardById = (req, res, next) => {
     .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((deletelike) => {
       res.send(deletelike);
-      console.log('deletelike');
-      console.log(deletelike);
     })
     .catch(next);
 };
