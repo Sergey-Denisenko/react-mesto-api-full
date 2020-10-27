@@ -50,6 +50,8 @@ const addLikeCardById = (req, res, next) => {
     .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((addlike) => {
       res.send(addlike);
+      console.log('addlike');
+      console.log(addlike);
     })
     .catch(next);
 };
@@ -63,6 +65,8 @@ const deleteLikeCardById = (req, res, next) => {
     .orFail(new NotFoundError('Not Found / Запрашиваемый ресурс не найден')) // 404
     .then((deletelike) => {
       res.send(deletelike);
+      console.log('deletelike');
+      console.log(deletelike);
     })
     .catch(next);
 };
